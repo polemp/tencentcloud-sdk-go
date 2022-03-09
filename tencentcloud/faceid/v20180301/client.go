@@ -2617,3 +2617,83 @@ func (c *Client) PhoneVerificationCUCCWithContext(ctx context.Context, request *
     err = c.Send(request, response)
     return
 }
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------sam
+
+// DetectAuth
+// 每次调用人脸核身SaaS化服务前，需先调用本接口获取BizToken，用来串联核身流程，在验证完成后，用于获取验证结果信息。
+//
+// 可能返回的错误码:
+//  FAILEDOPERATION_DECRYPTSYSTEMERROR = "FailedOperation.DecryptSystemError"
+//  FAILEDOPERATION_UNKNOWN = "FailedOperation.UnKnown"
+//  INVALIDPARAMETER = "InvalidParameter"
+//  INVALIDPARAMETER_UNSUPPORTENCRYPTFIELD = "InvalidParameter.UnsupportEncryptField"
+//  INVALIDPARAMETERVALUE_RULEIDDISABLED = "InvalidParameterValue.RuleIdDisabled"
+//  INVALIDPARAMETERVALUE_RULEIDNOTEXIST = "InvalidParameterValue.RuleIdNotExist"
+//  UNAUTHORIZEDOPERATION_ACTIVATEERROR = "UnauthorizedOperation.ActivateError"
+//  UNAUTHORIZEDOPERATION_ACTIVATING = "UnauthorizedOperation.Activating"
+//  UNAUTHORIZEDOPERATION_ARREARS = "UnauthorizedOperation.Arrears"
+//  UNAUTHORIZEDOPERATION_NONAUTHORIZE = "UnauthorizedOperation.NonAuthorize"
+//  UNAUTHORIZEDOPERATION_NONACTIVATED = "UnauthorizedOperation.Nonactivated"
+func (c *Client) GetBizTokenResponse(request *BiztokenRequest) (response *DetectAuthResponse, err error) {
+	if request == nil {
+		request = NewBiztokenRequest()
+	}
+	response = &DetectAuthResponse{
+		BaseResponse: &tchttp.BaseResponse{},
+	}
+	err = c.Send(request, response)
+	return
+} //获取BIZtoken
+
+func NewBiztokenRequest() (request *BiztokenRequest) { ///生成req
+	request = &BiztokenRequest{
+		BaseRequest: &tchttp.BaseRequest{},
+	}
+	request.Init().WithApiInfo("faceid", APIVersion, "GetBizToken")
+	return
+}
+
+// DetectAuth
+// 每次调用人脸核身SaaS化服务前，需先调用本接口获取BizToken，用来串联核身流程，在验证完成后，用于获取验证结果信息。
+//
+// 可能返回的错误码:
+//  FAILEDOPERATION_DECRYPTSYSTEMERROR = "FailedOperation.DecryptSystemError"
+//  FAILEDOPERATION_UNKNOWN = "FailedOperation.UnKnown"
+//  INVALIDPARAMETER = "InvalidParameter"
+//  INVALIDPARAMETER_UNSUPPORTENCRYPTFIELD = "InvalidParameter.UnsupportEncryptField"
+//  INVALIDPARAMETERVALUE_RULEIDDISABLED = "InvalidParameterValue.RuleIdDisabled"
+//  INVALIDPARAMETERVALUE_RULEIDNOTEXIST = "InvalidParameterValue.RuleIdNotExist"
+//  UNAUTHORIZEDOPERATION_ACTIVATEERROR = "UnauthorizedOperation.ActivateError"
+//  UNAUTHORIZEDOPERATION_ACTIVATING = "UnauthorizedOperation.Activating"
+//  UNAUTHORIZEDOPERATION_ARREARS = "UnauthorizedOperation.Arrears"
+//  UNAUTHORIZEDOPERATION_NONAUTHORIZE = "UnauthorizedOperation.NonAuthorize"
+//  UNAUTHORIZEDOPERATION_NONACTIVATED = "UnauthorizedOperation.Nonactivated"
+func (c *Client) DetectAuthRjhdWithContext(ctx context.Context, request *SmartAudit_request) (response *SmartAudit_Response, err error) {
+	if request == nil {
+		request = NewDetectAuthRjhdRequest()
+	}
+	request.SetContext(ctx)
+
+	response = NewSmartAudit_Response()
+	err = c.Send(request, response)
+	return
+}
+
+func NewSmartAudit_Response() (response *SmartAudit_Response) {
+	response = &SmartAudit_Response{
+		BaseResponse: &tchttp.BaseResponse{},
+	}
+	return
+}
+
+func NewDetectAuthRjhdRequest() (request *SmartAudit_request) {
+	request = &SmartAudit_request{
+		BaseRequest: &tchttp.BaseRequest{},
+	}
+	request.Init().WithApiInfo("faceid", APIVersion, "GetInteractiveVideoResult")
+
+	return
+}
+
