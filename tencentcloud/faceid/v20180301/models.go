@@ -3105,3 +3105,79 @@ type WeChatBillDetail struct {
 	// 业务RuleId
 	RuleId *string `json:"RuleId,omitempty" name:"RuleId"`
 }
+
+
+//---------------------------------------------------------------------------------------------------------------------------sam
+//人机互动核身
+
+type BiztokenRequest struct {
+	*tchttp.BaseRequest
+
+	// 身份标识（未使用OCR服务时，必须传入）。
+	// 规则：a-zA-Z0-9组合。最长长度32位。
+	IdCard *string `json:"IdCard,omitempty" name:"IdCard"`
+
+	// 姓名。（未使用OCR服务时，必须传入）最长长度32位。中文请使用UTF-8编码。
+	Name *string `json:"Name,omitempty" name:"Name"`
+
+	// 认证结束后重定向的回调链接地址。最长长度1024位。
+	CompareWith *int `json:"CompareWith,omitempty" name:"CompareWith"`
+}
+
+func (r *BiztokenRequest) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+//------------------以上是获取人机互动biztoken
+
+type SmartAudit_request struct {
+	*tchttp.BaseRequest
+
+	// 身份标识（未使用OCR服务时，必须传入）。
+	// 规则：a-zA-Z0-9组合。最长长度32位。
+	BizToken *string `json:"BizToken" name:"BizToken"`
+
+	// 姓名。（未使用OCR服务时，必须传入）最长长度32位。中文请使用UTF-8编码。
+	IsNeedVideo *bool `json:"IsNeedVideo" name:"NamIsNeedVideoe"`
+
+	// 认证结束后重定向的回调链接地址。最长长度1024位。
+	IsNeedBestFrame *bool `json:"IsNeedBestFrame" name:"IsNeedBestFrame"`
+}
+
+func (r *SmartAudit_request) FromJsonString(s string) error {
+	return json.Unmarshal([]byte(s), &r)
+}
+
+type SmartAudit_Response struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 身份标识（未使用OCR服务时，必须传入）。
+		// 规则：a-zA-Z0-9组合。最长长度32位。
+		IdCard *string `json:"IdCard" name:"IdCard"`
+
+		// 姓名。（未使用OCR服务时，必须传入）最长长度32位。中文请使用UTF-8编码。
+		Name *string `json:"Name" name:"Name"`
+
+		// GetBizToken中传入的Extra。注意：此字段可能返回 null，表示取不到有效值。。
+		Extra *string `json:"Extra" name:"Extra"`
+
+		// 本次验证的错误码。注意：此字段可能返回 null，表示取不到有效值。
+		Result *string `json:"Result" name:"Result"`
+
+		//本次验证的错误描述。注意：此字段可能返回 null，表示取不到有效值。
+		Description *string `json:"Description" name:"Description"`
+
+		//相似度。注意：此字段可能返回 null，表示取不到有效值。
+		Similarity *string `json:"Similarity" name:"Similarity"`
+
+		//视频Base64。注意：此字段可能返回 null，表示取不到有效值。
+		VideoBase64 *string `json:"VideoBase64" name:"VideoBase64"`
+
+		//最佳帧Base64。注意：此字段可能返回 null，表示取不到有效值。
+		BestFrameBase64 *string `json:"BestFrameBase64" name:"BestFrameBase64"`
+
+		//唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的
+		RequestId *string `json:"RequestId" name:"RequestId"`
+	}
+}
